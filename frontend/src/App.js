@@ -97,6 +97,7 @@ handleAddGrocery(item) {
                 <td>{item.storage_area}</td>
                 <td>{item.createdAt}</td>
                 <td>{item.expiration_date}</td>
+                <td><button>X</button></td>
                 
               </tr>
             )
