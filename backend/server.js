@@ -36,7 +36,7 @@ const corsOptions = {
   }
 }
 
-app.use(cors(corsOptions))
+app.use(cors())
 // we should add whitelist to cors
 app.use(express.json());
 
