@@ -22,6 +22,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleAddGrocery = this.handleAddGrocery.bind(this)
+    this.deleteGrocery = this.deleteGrocery.bind(this)
   }
   getGroceries() {
     fetch(baseURL+ '/groceries')
@@ -70,6 +71,17 @@ handleAddGrocery(item) {
   })
 }
 
+deleteGrocery (id) {
+  fetch(baseURL + '/groceries/' + id, {
+    method: 'DELETE'
+  }).then( response => {
+    const findIndex = this.state.groceries.findIndex(grocery => grocery._id === id)
+    const copyGroceries = [...this.state.groceries]
+    copyGroceries.splice(findIndex, 1)
+    this.setState({groceries: copyGroceries})
+  })
+}
+
 
 
   render() {
@@ -97,7 +109,7 @@ handleAddGrocery(item) {
                 <td>{item.storage_area}</td>
                 <td>{item.createdAt}</td>
                 <td>{item.expiration_date}</td>
-                <td><button>X</button></td>
+                <td><button onClick={()=>this.deleteGrocery(item._id)}>X</button></td>
                 
               </tr>
             )
