@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import EditItem from './components/EditItem'
 import NewForm from './components/NewForm'
 import NavBar from './components/NavBar'
@@ -152,6 +153,7 @@ setIndividualItem(item) {
       }
   render() {
     return (
+      <Router>
       <div className="container-fluid">
        <NavBar />
       <NewForm handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} food_name = {this.state.food_name} food_qty = {this.state.food_qty} storage_area = {this.state.storage_area} expiration_date={this.state.expiration_date}/>
@@ -176,6 +178,7 @@ setIndividualItem(item) {
         </table>
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>
       </div>
+      </Router>
     );
   }
 }
