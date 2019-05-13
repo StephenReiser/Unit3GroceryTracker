@@ -6,7 +6,7 @@ let baseURL = ''
 if (process.env.NODE_ENV === 'development') {
   baseURL = 'http://localhost:3003'
 } else {
-  baseURL = 'your heroku bakend url here'
+  baseURL = 'https://quiet-garden-36890.herokuapp.com'
 }
 
 class App extends React.Component {
