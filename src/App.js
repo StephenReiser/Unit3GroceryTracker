@@ -1,5 +1,7 @@
 import React from 'react';
 import EditItem from './components/EditItem'
+import NewForm from './components/NewForm'
+import NavBar from './components/NavBar'
 
 let baseURL = ''
 
@@ -151,33 +153,8 @@ setIndividualItem(item) {
   render() {
     return (
       <div className="container-fluid">
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" href="#">Navbar</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="food_name">Food Name</label>
-          <input type='text' id='food_name' value={this.state.food_name} placeholder='New Item' onChange={this.handleChange} />
-          <label htmlFor="food_qty">Quantity</label>
-          <input type='number' id='food_qty' value={this.state.food_qty} placeholder='1' onChange={this.handleChange} />
-          <label htmlFor="expiration_date">Expiration Date</label>
-          <input type='date' id='expiration_date' value={this.state.expiration_date} placeholder='' onChange={this.handleChange} />
-          <label htmlFor="storage_area">Storage Area</label>
-          <input type='text' id='storage_area' value={this.state.storage_area} placeholder='' onChange={this.handleChange} />
-          <input type='submit' value='Add Food' />
-        </form>
+       <NavBar />
+      <NewForm handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} food_name = {this.state.food_name} food_qty = {this.state.food_qty} storage_area = {this.state.storage_area} expiration_date={this.state.expiration_date}/>
 
         <table>
           <tbody>
