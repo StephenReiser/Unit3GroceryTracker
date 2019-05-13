@@ -24,7 +24,7 @@ groceries.post('/', (req, res) => {
 
 
 groceries.delete('/:id', (req, res) => {
-    Grocery.findByIdAndRemove(req.params.id, (err, deletedGrocery) => {
+    Grocery.findOneAndRemove({_id:req.params.id}, (err, deletedGrocery) => {
         if (err) {
             res.status(400).json({ error: err.message })
         }
