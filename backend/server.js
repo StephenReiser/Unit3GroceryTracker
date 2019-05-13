@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const PORT = 3003
 const groceriesControllers = require('./controllers/groceries.js')
@@ -19,7 +20,24 @@ mongoose.connection.once('open', ()=>{
     console.log('connected to mongoose...')
 })
 
+
+
 // middleware
+
+//cors stuff:
+const whitelist = ['http://localhost:3000', 'https://OURAPPNAME.herokuapp.com']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+app.use(cors())
+// we should add whitelist to cors
 app.use(express.json());
 
 app.use('/groceries', groceriesControllers)
