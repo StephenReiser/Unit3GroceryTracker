@@ -177,6 +177,14 @@ setIndividualItem(item) {
 
         <table>
           <tbody>
+            <tr>
+              <td>Food Name</td>
+              <td>Food Qty</td>
+              <td>Storage Area</td>
+              <td>Created Date</td>
+              <td>Exp Date</td>
+              
+            </tr>
             {this.state.groceries.map(item => {
               // below converts expire date to a string - probably should put these into a funciton
               let itemDate = new Date(item.expiration_date)
