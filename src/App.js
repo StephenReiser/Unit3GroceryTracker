@@ -93,63 +93,63 @@ class App extends React.Component {
   }
 
 
-setIndividualItem(item) {
-  console.log(item)
-  const date = new Date(item.expiration_date)
+  setIndividualItem(item) {
+    console.log(item)
+    const date = new Date(item.expiration_date)
 
-  // let year = date.getFullYear();
-  // let month = (1 + date.getMonth()).toString().padStart(2, ‘0’);
-  // let day = date.getDate().toString().padStart(2, ‘0’);
+    // let year = date.getFullYear();
+    // let month = (1 + date.getMonth()).toString().padStart(2, ‘0’);
+    // let day = date.getDate().toString().padStart(2, ‘0’);
 
-  // function getFormattedDate(date) {
+    // function getFormattedDate(date) {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
     let day = date.getDate().toString().padStart(2, "0");
- 
+
     // return month + "/" + day + "/" + year;
-//  }
-//  getFormattedDate(dateTest)
-  
-  this.setState({
-    groceriesDetails: item,
-    editFood_name: item.food_name,
-    editFood_qty: item.food_qty,
-    editStorage_area: item.storage_area,
-    editExpiration_date: year+'-'+month+'-'+day
-  })
-}
+    //  }
+    //  getFormattedDate(dateTest)
+
+    this.setState({
+      groceriesDetails: item,
+      editFood_name: item.food_name,
+      editFood_qty: item.food_qty,
+      editStorage_area: item.storage_area,
+      editExpiration_date: year + '-' + month + '-' + day
+    })
+  }
 
 
 
 
 
-  handleEdit (id) {
-        console.log(id)
-        // not reading ID for some reason
-        fetch(baseURL + '/groceries/' + id, {
-          method: 'PUT',
-          body: JSON.stringify({food_name: this.state.editFood_name, food_qty: this.state.editFood_qty, expiration_date: this.state.editExpiration_date, storage_area: this.state.editStorage_area}),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).then (res => res.json())
-          .then (resJson => {
-            console.log(baseURL + '/groceries/' + id)
-            console.log(resJson)
-            console.log(this.state.groceriesDetails.editFood_qty)
-            const findIndex = this.state.groceries.findIndex(item => item._id === id)
-            const copyGroceries = [...this.state.groceries]
-            copyGroceries.splice(findIndex, 1, resJson)
-
-            this.setState({
-              groceries: copyGroceries,
-              editFood_name: '',
-              editFood_qty: 0,
-              editExpiration_date: '2019-05-01',
-              editStorage_area: ''
-            })
-        }).catch (error => console.error({'Error': error}))
+  handleEdit(id) {
+    console.log(id)
+    // not reading ID for some reason
+    fetch(baseURL + '/groceries/' + id, {
+      method: 'PUT',
+      body: JSON.stringify({ food_name: this.state.editFood_name, food_qty: this.state.editFood_qty, expiration_date: this.state.editExpiration_date, storage_area: this.state.editStorage_area }),
+      headers: {
+        'Content-Type': 'application/json'
       }
+    }).then(res => res.json())
+      .then(resJson => {
+        console.log(baseURL + '/groceries/' + id)
+        console.log(resJson)
+        console.log(this.state.groceriesDetails.editFood_qty)
+        const findIndex = this.state.groceries.findIndex(item => item._id === id)
+        const copyGroceries = [...this.state.groceries]
+        copyGroceries.splice(findIndex, 1, resJson)
+
+        this.setState({
+          groceries: copyGroceries,
+          editFood_name: '',
+          editFood_qty: 0,
+          editExpiration_date: '2019-05-01',
+          editStorage_area: ''
+        })
+      }).catch(error => console.error({ 'Error': error }))
+  }
   render() {
     return (
       <div className="container-fluid">
@@ -185,24 +185,28 @@ setIndividualItem(item) {
           <tbody>
             {this.state.groceries.map(item => {
               return (
-                <tr key={item._id}>
-                  <td>{item.food_name}</td>
-                  <td>{item.food_qty}</td>
-                  <td>{item.storage_area}</td>
-                  <td>{item.createdAt}</td>
-                  <td>{item.expiration_date}</td>
-                  <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
-                  <td><button onClick={() => this.setIndividualItem(item)}>Edit</button></td>
-
-                </tr>
+                <React.Fragment>
+                  <tr key={item._id}>
+                    <td>{item.food_name}</td>
+                    <td>{item.food_qty}</td>
+                    <td>{item.storage_area}</td>
+                    <td>{item.createdAt}</td>
+                    <td>{item.expiration_date}</td>
+                    <td>
+                      <ChartFutures expireDate={item.expiration_date} createDate={item.createdAt} />
+                    </td>
+                    <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
+                    <td><button onClick={() => this.setIndividualItem(item)}>Edit</button></td>
+                  </tr>
+                </React.Fragment>
               )
             })}
           </tbody>
         </table>
-        <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>
-        <ChartFutures/>
+        <EditItem handleEdit={this.handleEdit} editStorage_area={this.state.editStorage_area} editFood_name={this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange={this.handleChange} groceriesDetails={this.state.groceriesDetails} />
       </div>
     );
   }
 }
+
 export default App;

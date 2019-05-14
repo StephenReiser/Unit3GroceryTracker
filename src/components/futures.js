@@ -11,7 +11,16 @@ class ChartFutures extends React.Component {
             apikey: 'api_key=' + 'zqzws_Cdwyy_r6nHyFCT',
             searchURL: '',
             commodity: '',
-            commodityBlank: false
+            commodityBlank: false,
+            // life: new Date(this.props.expireDate) - new Date(this.props.createDate),
+            // green: this.life - Date.now(),
+            // red: this.life - this.green
+            // life: (new Date(this.props.expireDate) - new Date(this.props.createDate)),
+            // now: Date.now(),
+            // green: new Date(this.props.expireDate) - Date.now(),
+            // red: (new Date(this.props.expireDate) - new Date(this.props.createDate)) - ((new Date(this.props.expireDate) - new Date(this.props.createDate)) - Date.now())
+            red: Date.now(),
+            green: Date.parse(this.props.expireDate),
             // https://www.quandl.com/api/v3/datasets/ODA/PORANG_USD?api_key=zqzws_Cdwyy_r6nHyFCT
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,12 +40,28 @@ class ChartFutures extends React.Component {
                 .then(response => {
                     return response.json()
                 }).then(json => {
+                    // set variable for all futures data returned
                     let futuresArray = []
                     futuresArray.push(json)
-                    console.log(futuresArray)
+                    // set variable for dates
+                    let fdates = futuresArray[0].dataset.data
+                    let futuresDates = []
+                    fdates.forEach(function(item){
+                        futuresDates.push(item[0]);
+                      });
+                    console.log(futuresDates)
+                    // set variable for prices
+                    let fprices = futuresArray[0].dataset.data
+                    let futuresPrices = []
+                    fdates.forEach(function(item){
+                        futuresPrices.push(item[1]);
+                      });
+                    console.log(futuresPrices)
                     this.setState({
                         commodityBlank: true,
                         commodity: futuresArray,
+                        dates: futuresDates,
+                        prices: futuresPrices,
                         futuresTitle: ''
                     })
                 },
@@ -47,6 +72,45 @@ class ChartFutures extends React.Component {
     componentDidMount() {
         const node = this.node;
 
+
+        // var myChart = new Chart(node, {
+        //     type: 'line',
+        //     data: {
+        //         labels: this.state.dates,
+        //         datasets: [{
+        //             label: 'Good Until',
+        //             data: this.state.prices,
+        //             backgroundColor: [
+        //                 'rgba(75, 192, 192, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)',
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(153, 102, 255, 0.2)',
+        //                 'rgba(255, 159, 64, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(75, 192, 192, 1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)',
+        //                 'rgba(255, 99, 132, 1)',
+        //                 'rgba(153, 102, 255, 1)',
+        //                 'rgba(255, 159, 64, 1)'
+        //             ],
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             yAxes: [{
+        //                 display: false,
+        //                 ticks: {
+        //                     beginAtZero: true
+        //                 }
+        //             }]
+        //         }
+        //     }
+        // });
+
         var myChart = new Chart(node, {
             type: 'doughnut',
             data: {
@@ -54,7 +118,7 @@ class ChartFutures extends React.Component {
                 // ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 datasets: [{
                     label: 'Good Until',
-                    data: [70, 30],
+                    data: [this.state.green, this.state.red],
                     // [12, 19, 3, 5, 2, 3],
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.2)',
@@ -76,6 +140,7 @@ class ChartFutures extends React.Component {
                 }]
             },
             options: {
+                legend: false,
                 scales: {
                     yAxes: [{
                         display: false,
@@ -91,7 +156,7 @@ class ChartFutures extends React.Component {
     render() {
         return (
             <div>
-                <React.Fragment>
+                {/* <React.Fragment>
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor='futuresTitle'>Title</label>
                         <input
@@ -106,20 +171,16 @@ class ChartFutures extends React.Component {
                         />
                     </form>
                     {(this.state.commodityBlank)
-                        ? <p>{this.state.commodity[0].dataset.data}</p>
+                        ? <p>{this.state.commodity[0].dataset.data[0]}</p>
                         : ''
                     }
 
-                </React.Fragment>
-                <div className="row">
-                    <div className="col-3"></div>
-                    <div className="col-6">                    <canvas
-                        style={{ width: 100, height: 50 }}
+                </React.Fragment> */}
+                    <h1>{this.state.expireDate} </h1>
+                  <canvas
+                        style={{ width: 75, height: 100 }}
                         ref={node => (this.node = node)}
                     />
-                    </div>
-                    <div className="col-3"></div>
-                </div>
             </div>
         );
     }
