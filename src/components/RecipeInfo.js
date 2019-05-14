@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 
+const cardSize = {
+  width: '18rem'
+}
+
+
 class RecipeInfo extends Component {
     constructor(props) {
         super(props)
@@ -69,14 +74,16 @@ class RecipeInfo extends Component {
              : null} */}
 
              {this.state.recipesSearched ? 
-                <div>{this.state.recipeResults[0].map(item => {
+                <div className='row'>{this.state.recipeResults[0].map(item => {
                     return (
-                        <div key={item.recipe.label}>
-                        <h1>{item.recipe.label}</h1>
-                        <img src={item.recipe.image} alt={item.recipe.label} />
-                        <ul>
+                        <div key={item.recipe.label} className='card' style={cardSize}>
+                        <img src={item.recipe.image} alt={item.recipe.label} className='card-img-top'/>
+                        <div className='card-body'>
+                        <h5 className='card-title'>{item.recipe.label}</h5>
+                        </div>
+                        <ul className='list-group list-group-flush'>
                            {item.recipe.ingredients.map(ingredient => {
-                               return <li key={ingredient.text + Math.floor(Math.random()*100)}>{ingredient.text}</li>
+                               return <li key={ingredient.text + Math.floor(Math.random()*100)} class='list-group-item'>{ingredient.text}</li>
                            })}
                         </ul>
                         </div>
