@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import EditItem from './components/EditItem'
 import NewForm from './components/NewForm'
 import NavBar from './components/NavBar'
+import NutritionInfo from './components/NutritionInfo.js'
 import RecipeInfo from './components/RecipeInfo'
 
 let baseURL = ''
@@ -28,7 +29,12 @@ class App extends React.Component {
       editExpiration_date: "2019-05-01",
       editStorage_area: '',
       groceriesDetails: {},
-     
+      baseURL: 'https://api.nutritionix.com/v1_1/search/',
+      query: '?',
+      range: 'results=0%3A20&cal_min=0&cal_max=50000&',
+      fields: 'fields=item_name%2Cbrand_name%2Citem_id%2Cbrand_id%2Cnf_ingredient_statement%2Cnf_calories%2Cnf_cholesterol&',
+      authorization: 'appId=f95dc4d9&appKey=25ec40f8781dd35636bf9456ff98197b',
+      searchURL: ''
 
       // "https://api.edamam.com/search?q=chicken&app_id=$9d94e852&app_key=$480a66a770af9cbc380a775b8959453c&from=0&to=3
     }
@@ -39,6 +45,7 @@ class App extends React.Component {
     this.deleteGrocery = this.deleteGrocery.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.setIndividualItem = this.setIndividualItem.bind(this)
+    this.getNutritionInfo = this.getNutritionInfo.bind(this)
     
   }
   getGroceries() {
@@ -161,7 +168,24 @@ setIndividualItem(item) {
       }
 
 
-
+      getNutritionInfo (food_name) {
+        this.setState({
+            searchURL: this.state.baseURL + food_name + this.state.query + this.state.range + this.state.fields + this.state.authorization
+        }, () => {
+            fetch(this.state.searchURL)
+                .then(response => {
+                    return response.json()
+                }).then(json => {
+                    let whatever = []
+                whatever.push(json)
+                    console.log(json)
+                    this.setState({
+                    food: whatever,
+                    food_Name: ''
+                })},
+                err => console.log(err))
+        })
+    }
 
 
 
@@ -177,6 +201,14 @@ setIndividualItem(item) {
 
         <table>
           <tbody>
+            <tr>
+              <td>Food Name</td>
+              <td>Food Qty</td>
+              <td>Storage Area</td>
+              <td>Created Date</td>
+              <td>Exp Date</td>
+              
+            </tr>
             {this.state.groceries.map(item => {
               // below converts expire date to a string - probably should put these into a funciton
               let itemDate = new Date(item.expiration_date)
@@ -203,12 +235,17 @@ setIndividualItem(item) {
                   <td>{expDate}</td>
                   <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
                   <td><Link to='/edit'><button onClick={() => this.setIndividualItem(item)}>Edit</button></Link></td>
+                  <td><button onClick={() => this.getNutritionInfo(item.food_name)}>Nutrition Info</button></td>
 
                 </tr>
               )
             })}
           </tbody>
         </table>
+        {(this.state.food)
+              ? <NutritionInfo food={this.state.food} />
+              : ''
+          }
         <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>}/>
         
         <RecipeInfo />
