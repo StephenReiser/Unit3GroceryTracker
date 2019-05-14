@@ -161,13 +161,29 @@ setIndividualItem(item) {
         <table>
           <tbody>
             {this.state.groceries.map(item => {
+              // below converts expire date to a string - probably should put these into a funciton
+              let itemDate = new Date(item.expiration_date)
+              let itemYear = itemDate.getFullYear();
+              let itemMonth = (1 + itemDate.getMonth()).toString().padStart(2, "0");
+              let itemDay = itemDate.getDate().toString().padStart(2, "0");
+              let expDate = itemYear+'-'+ itemMonth+'-'+ itemDay
+
+              // below convertes createdAt to a string
+              let createDate = new Date(item.expiration_date)
+              let createYear = createDate.getFullYear();
+              let createMonth = (1 + createDate.getMonth()).toString().padStart(2, "0");
+              let createDay = createDate.getDate().toString().padStart(2, "0");
+              let createdDate = createYear+'-'+ createMonth+'-'+ createDay
+
+
+              
               return (
                 <tr key={item._id}>
                   <td>{item.food_name}</td>
                   <td>{item.food_qty}</td>
                   <td>{item.storage_area}</td>
-                  <td>{item.createdAt}</td>
-                  <td>{item.expiration_date}</td>
+                  <td>{createdDate}</td>
+                  <td>{expDate}</td>
                   <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
                   <td><Link to='/edit'><button onClick={() => this.setIndividualItem(item)}>Edit</button></Link></td>
 
