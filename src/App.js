@@ -1,5 +1,6 @@
 import React from 'react';
 import EditItem from './components/EditItem'
+import ChartFutures from './components/futures'
 
 let baseURL = ''
 
@@ -157,13 +158,13 @@ setIndividualItem(item) {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="#">Link</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Link</a>
               </li>
             </ul>
           </div>
@@ -199,6 +200,7 @@ setIndividualItem(item) {
           </tbody>
         </table>
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>
+        <ChartFutures/>
       </div>
     );
   }
