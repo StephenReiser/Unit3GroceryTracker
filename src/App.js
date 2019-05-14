@@ -169,14 +169,18 @@ setIndividualItem(item) {
                   <td>{item.createdAt}</td>
                   <td>{item.expiration_date}</td>
                   <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
-                  <td><button onClick={() => this.setIndividualItem(item)}>Edit</button></td>
+                  <td><Link to='/edit'><button onClick={() => this.setIndividualItem(item)}>Edit</button></Link></td>
 
                 </tr>
               )
             })}
           </tbody>
         </table>
-        <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>
+        <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>}/>
+        
+        
+        {/*
+        <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/> */}
       </div>
       </Router>
     );
