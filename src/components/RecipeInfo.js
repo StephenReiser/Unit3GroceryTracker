@@ -9,7 +9,7 @@ class RecipeInfo extends Component {
     constructor(props) {
         super(props)
         this.state= {
-            searchURL: "https://api.edamam.com/search?q=",
+            recipeSearchURL: "https://api.edamam.com/search?q=",
             searchIngredients: "chicken",
             searchOther: "&app_id=9d94e852&app_key=480a66a770af9cbc380a775b8959453c&from=0&to=3",
             searchFullUrl: '',
@@ -29,7 +29,7 @@ class RecipeInfo extends Component {
         
     
         this.setState({
-          searchFullUrl: this.state.searchURL + this.state.searchIngredients + this.state.searchOther
+          searchFullUrl: this.state.recipeSearchURL + this.state.searchIngredients + this.state.searchOther
         }, () => {
           fetch(this.state.searchFullUrl)
           .then(response => {
@@ -83,7 +83,7 @@ class RecipeInfo extends Component {
                         </div>
                         <ul className='list-group list-group-flush'>
                            {item.recipe.ingredients.map(ingredient => {
-                               return <li key={ingredient.text + Math.floor(Math.random()*100)} class='list-group-item'>{ingredient.text}</li>
+                               return <li key={ingredient.text + Math.floor(Math.random()*100)} className='list-group-item'>{ingredient.text}</li>
                            })}
                         </ul>
                         </div>
