@@ -10,6 +10,8 @@ class ChartFutures extends React.Component {
             query: '?',
             apikey: 'api_key=' + 'zqzws_Cdwyy_r6nHyFCT',
             searchURL: '',
+            commodity: '',
+            commodityBlank: false
             // https://www.quandl.com/api/v3/datasets/ODA/PORANG_USD?api_key=zqzws_Cdwyy_r6nHyFCT
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,7 +30,16 @@ class ChartFutures extends React.Component {
             fetch(this.state.searchURL)
                 .then(response => {
                     return response.json()
-                }).then(json => console.log(json),
+                }).then(json => {
+                    let futuresArray = []
+                    futuresArray.push(json)
+                    console.log(futuresArray)
+                    this.setState({
+                        commodityBlank: true,
+                        commodity: futuresArray,
+                        futuresTitle: ''
+                    })
+                },
                     err => console.log(err))
         })
     }
@@ -94,14 +105,18 @@ class ChartFutures extends React.Component {
                             value='Find commodity Info'
                         />
                     </form>
+                    {(this.state.commodityBlank)
+                        ? <p>{this.state.commodity[0].dataset.data}</p>
+                        : ''
+                    }
 
                 </React.Fragment>
                 <div className="row">
                     <div className="col-3"></div>
                     <div className="col-6">                    <canvas
-                            style={{ width: 100, height: 50 }}
-                            ref={node => (this.node = node)}
-                        />
+                        style={{ width: 100, height: 50 }}
+                        ref={node => (this.node = node)}
+                    />
                     </div>
                     <div className="col-3"></div>
                 </div>
