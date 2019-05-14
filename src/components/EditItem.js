@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 
 class EditItem extends Component {
@@ -15,6 +16,7 @@ class EditItem extends Component {
 
     render() {
         return(
+     
             <div className='editForm'>
             
             <form onSubmit={this.props.handleEdit}>
@@ -31,7 +33,7 @@ class EditItem extends Component {
             <input type='text' id='editStorage_area' value={this.props.editStorage_area} onChange={this.props.handleChange} />
            
           </form>
-          <button onClick={()=>{this.props.handleEdit(this.props.groceriesDetails._id)}}>Edit!</button>
+          <Link to='/' exact><button onClick={()=>{this.props.handleEdit(this.props.groceriesDetails._id)}}>Edit!</button></Link>
 
 {/* I think all this will work, just need to pass in handle Edit in app.js and all the state info */}
           </div>

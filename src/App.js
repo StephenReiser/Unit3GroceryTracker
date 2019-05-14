@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import EditItem from './components/EditItem'
 import NewForm from './components/NewForm'
 import NavBar from './components/NavBar'
@@ -149,6 +150,7 @@ setIndividualItem(item) {
               editExpiration_date: '2019-05-01',
               editStorage_area: ''
             })
+            
         }).catch (error => console.error({'Error': error}))
       }
   render() {
@@ -193,6 +195,7 @@ setIndividualItem(item) {
           </tbody>
         </table>
         <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>}/>
+        
         
         
         {/*
