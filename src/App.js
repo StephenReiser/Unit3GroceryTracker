@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import EditItem from './components/EditItem'
 import NewForm from './components/NewForm'
 import NavBar from './components/NavBar'
+import RecipeInfo from './components/RecipeInfo'
 
 let baseURL = ''
 
@@ -26,7 +27,10 @@ class App extends React.Component {
       editFood_qty: '',
       editExpiration_date: "2019-05-01",
       editStorage_area: '',
-      groceriesDetails: {}
+      groceriesDetails: {},
+     
+
+      // "https://api.edamam.com/search?q=chicken&app_id=$9d94e852&app_key=$480a66a770af9cbc380a775b8959453c&from=0&to=3
     }
     this.getGroceries = this.getGroceries.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -35,6 +39,7 @@ class App extends React.Component {
     this.deleteGrocery = this.deleteGrocery.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.setIndividualItem = this.setIndividualItem.bind(this)
+    
   }
   getGroceries() {
     fetch(baseURL + '/groceries')
@@ -49,6 +54,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getGroceries()
+    
   }
 
   handleChange(event) {
@@ -153,6 +159,15 @@ setIndividualItem(item) {
             
         }).catch (error => console.error({'Error': error}))
       }
+
+
+
+
+
+
+
+
+
   render() {
     return (
       <Router>
@@ -196,7 +211,7 @@ setIndividualItem(item) {
         </table>
         <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>}/>
         
-        
+        <RecipeInfo />
         
         {/*
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/> */}
