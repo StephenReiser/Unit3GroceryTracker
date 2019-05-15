@@ -67,7 +67,7 @@ class ChartExpiration extends React.Component {
         return (
             <div>
                 <canvas
-                    style={{ width: 75, height: 100 }}
+                    style={{ width: 100, height: 50 }}
                     ref={node => (this.node = node)}
                 />
             </div>
