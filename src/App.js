@@ -91,6 +91,7 @@ class App extends React.Component {
       }
     }).then(res => res.json())
       .then(resJson => {
+        console.log(resJson)
         this.handleAddGrocery(resJson)
         this.setState({
           food_name: '',
@@ -132,7 +133,7 @@ setIndividualItem(item) {
   // function getFormattedDate(date) {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
-    let day = date.getDate().toString().padStart(2, "0");
+    let day = (1 + date.getDate()).toString().padStart(2, "0");
  
     // return month + "/" + day + "/" + year;
 //  }
@@ -223,15 +224,15 @@ setIndividualItem(item) {
               
             </tr>
             {this.state.groceries.map(item => {
-              // below converts expire date to a string - probably should put these into a funciton
+              // below converts expire date to a string - probably should put these into a funciton - seems to be screwed up on the 1st/last day of a month
               let itemDate = new Date(item.expiration_date)
               let itemYear = itemDate.getFullYear();
               let itemMonth = (1 + itemDate.getMonth()).toString().padStart(2, "0");
-              let itemDay = itemDate.getDate().toString().padStart(2, "0");
+              let itemDay = (1 + itemDate.getDate()).toString().padStart(2, "0");
               let expDate = itemYear+'-'+ itemMonth+'-'+ itemDay
 
               // below convertes createdAt to a string
-              let createDate = new Date(item.expiration_date)
+              let createDate = new Date(item.createdAt)
               let createYear = createDate.getFullYear();
               let createMonth = (1 + createDate.getMonth()).toString().padStart(2, "0");
               let createDay = createDate.getDate().toString().padStart(2, "0");
