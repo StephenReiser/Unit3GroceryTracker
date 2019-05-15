@@ -35,7 +35,8 @@ class App extends React.Component {
       range: 'results=0%3A20&cal_min=0&cal_max=50000&',
       fields: 'fields=item_name%2Cbrand_name%2Citem_id%2Cbrand_id%2Cnf_ingredient_statement%2Cnf_calories%2Cnf_cholesterol&',
       authorization: 'appId=f95dc4d9&appKey=25ec40f8781dd35636bf9456ff98197b',
-      searchURL: ''
+      searchURL: '',
+      searchIngredient: ''
 
       // "https://api.edamam.com/search?q=chicken&app_id=$9d94e852&app_key=$480a66a770af9cbc380a775b8959453c&from=0&to=3
     }
@@ -49,6 +50,8 @@ class App extends React.Component {
     this.getNutritionInfo = this.getNutritionInfo.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleEditSelect = this.handleEditSelect.bind(this)
+    this.addToSearchIngredients = this.addToSearchIngredients.bind(this)
+    this.clearIngredients = this.clearIngredients.bind(this)
     
   }
   getGroceries() {
@@ -203,7 +206,20 @@ class App extends React.Component {
         })
     }
 
+addToSearchIngredients (searchFood) {
+  let addFood = searchFood
+  let newFoodString = this.state.searchIngredient + ' ' + addFood
+    this.setState({
+      searchIngredient: newFoodString
+    })
+    
+}
 
+clearIngredients () {
+  this.setState({
+    searchIngredient: ''
+  })
+}
 
 
 
@@ -246,7 +262,7 @@ class App extends React.Component {
               return (
                 <React.Fragment>
                   <tr key={item._id}>
-                  <td><button>+</button></td>
+                  <td><button onClick={() => this.addToSearchIngredients(item.food_name)}>+</button></td>
                     <td>{item.food_name}</td>
                     <td>{item.food_qty}</td>
                     <td>{item.storage_area}</td>
@@ -270,7 +286,7 @@ class App extends React.Component {
           }
         <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails} handleSelect={this.handleEditSelect}/>}/>
         
-        <RecipeInfo />
+        <RecipeInfo searchIngredient = {this.state.searchIngredient} clearIngredients = {this.clearIngredients}/>
         
         {/*
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/> */}
