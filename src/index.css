@@ -20,6 +20,9 @@ code {
   grid-gap: 3rem;
 }
 
+.card {
+  padding-top: 5%;
+}
 
 .card a {
   color: black;
