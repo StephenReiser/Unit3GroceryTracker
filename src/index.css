@@ -13,6 +13,13 @@ code {
 }
 
 
+/* ADDED CODE BELOW */
+
+
+nav {
+  margin-bottom: 3%;
+}
+
 /* https://stackoverflow.com/questions/36487389/bootstrap-4-card-deck-table-cell-columns-responsive-based-on-viewport */
 .card-deck {
   display: grid;
@@ -28,3 +35,4 @@ code {
   color: black;
   text-decoration: none;
 }
+
