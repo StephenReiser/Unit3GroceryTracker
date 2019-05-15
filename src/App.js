@@ -23,7 +23,7 @@ class App extends React.Component {
       food_name: '',
       food_qty: 1,
       expiration_date: "2019-05-01",
-      storage_area: '',
+      storage_area: 'cabinet',
       editFood_name: '',
       editFood_qty: '',
       editExpiration_date: "2019-05-01",
@@ -46,6 +46,7 @@ class App extends React.Component {
     this.handleEdit = this.handleEdit.bind(this)
     this.setIndividualItem = this.setIndividualItem.bind(this)
     this.getNutritionInfo = this.getNutritionInfo.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
     
   }
   getGroceries() {
@@ -67,6 +68,11 @@ class App extends React.Component {
   handleChange(event) {
     this.setState({ [event.currentTarget.id]: event.currentTarget.value })
   }
+  handleSelect(event){
+    this.setState({
+      storage_area: event.target.value
+    })
+  }
 
   handleSubmit(event) {
     event.preventDefault()
@@ -83,7 +89,7 @@ class App extends React.Component {
           food_name: '',
           food_qty: 1,
           expiration_date: "2019-05-01",
-          storage_area: ''
+          storage_area: 'cabinet'
         })
       }).catch(error => console.error({ 'Error': error }))
   }
@@ -197,7 +203,7 @@ setIndividualItem(item) {
       <Router>
       <div className="container-fluid">
        <NavBar />
-      <NewForm handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} food_name = {this.state.food_name} food_qty = {this.state.food_qty} storage_area = {this.state.storage_area} expiration_date={this.state.expiration_date}/>
+      <NewForm handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} food_name = {this.state.food_name} food_qty = {this.state.food_qty} storage_area = {this.state.storage_area} expiration_date={this.state.expiration_date} handleSelect={this.handleSelect}/>
 
         <table>
           <tbody>

@@ -11,7 +11,17 @@ class NewForm extends Component {
             <label htmlFor="expiration_date">Expiration Date</label>
             <input type='date' id='expiration_date' value={this.props.expiration_date} placeholder='' onChange={this.props.handleChange} />
             <label htmlFor="storage_area">Storage Area</label>
-            <input type='text' id='storage_area' value={this.props.storage_area} placeholder='' onChange={this.props.handleChange} />
+            {/* <input type='text' id='storage_area' value={this.props.storage_area} placeholder='' onChange={this.props.handleChange} /> */}
+            <select onChange={this.props.handleSelect}>
+            
+                <option value='cabinet'>Cabinet</option>
+                <option value='refridgerator'>Refridgerator</option>
+                <option value='freezer'>Freezer</option>
+
+
+            </select>
+
+
             <input type='submit' value='Add Food' />
           </form> 
         )
