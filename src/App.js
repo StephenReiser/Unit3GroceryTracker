@@ -8,6 +8,7 @@ import NavBar from './components/NavBar'
 import NutritionInfo from './components/NutritionInfo.js'
 import RecipeInfo from './components/RecipeInfo'
 import Home from './components/Home'
+import TabularView from './components/TabularView'
 
 let baseURL = ''
 
@@ -235,6 +236,8 @@ clearIngredients () {
           <Route path='/new' render={(props)=> <NewForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} food_name={this.state.food_name} food_qty={this.state.food_qty} storage_area={this.state.storage_area} expiration_date={this.state.expiration_date} handleSelect={this.handleSelect} />}></Route>
           
           <Route path= '/' exact render={(props) =><Home groceries={this.state.groceries} setIndividualItem={this.setIndividualItem} addToSearchIngredients={this.addToSearchIngredients} deleteGrocery={this.deleteGrocery} getNutritionInfo={this.getNutritionInfo}/>}></Route>
+
+          <Route path= '/tabular' exact render={(props) =><TabularView groceries={this.state.groceries} setIndividualItem={this.setIndividualItem} addToSearchIngredients={this.addToSearchIngredients} deleteGrocery={this.deleteGrocery} getNutritionInfo={this.getNutritionInfo}/>}></Route>
           
           
           {/* <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} />}></Route> */}
