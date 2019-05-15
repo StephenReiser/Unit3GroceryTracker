@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 import EditItem from './components/EditItem'
+import ChartExpiration from './components/ChartExpiration'
 import NewForm from './components/NewForm'
 import NavBar from './components/NavBar'
 import NutritionInfo from './components/NutritionInfo.js'
@@ -122,31 +123,32 @@ class App extends React.Component {
     })
   }
 
-setIndividualItem(item) {
-  console.log(item)
-  const date = new Date(item.expiration_date)
 
-  // let year = date.getFullYear();
-  // let month = (1 + date.getMonth()).toString().padStart(2, ‘0’);
-  // let day = date.getDate().toString().padStart(2, ‘0’);
+  setIndividualItem(item) {
+    console.log(item)
+    const date = new Date(item.expiration_date)
 
-  // function getFormattedDate(date) {
+    // let year = date.getFullYear();
+    // let month = (1 + date.getMonth()).toString().padStart(2, ‘0’);
+    // let day = date.getDate().toString().padStart(2, ‘0’);
+
+    // function getFormattedDate(date) {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
     let day = (1 + date.getDate()).toString().padStart(2, "0");
  
     // return month + "/" + day + "/" + year;
-//  }
-//  getFormattedDate(dateTest)
-  
-  this.setState({
-    groceriesDetails: item,
-    editFood_name: item.food_name,
-    editFood_qty: item.food_qty,
-    editStorage_area: item.storage_area,
-    editExpiration_date: year+'-'+month+'-'+day
-  })
-}
+    //  }
+    //  getFormattedDate(dateTest)
+
+    this.setState({
+      groceriesDetails: item,
+      editFood_name: item.food_name,
+      editFood_qty: item.food_qty,
+      editStorage_area: item.storage_area,
+      editExpiration_date: year + '-' + month + '-' + day
+    })
+  }
 
 
 
@@ -241,17 +243,21 @@ setIndividualItem(item) {
 
               
               return (
-                <tr key={item._id}>
-                  <td>{item.food_name}</td>
-                  <td>{item.food_qty}</td>
-                  <td>{item.storage_area}</td>
-                  <td>{createdDate}</td>
-                  <td>{expDate}</td>
-                  <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
-                  <td><Link to='/edit'><button onClick={() => this.setIndividualItem(item)}>Edit</button></Link></td>
-                  <td><button onClick={() => this.getNutritionInfo(item.food_name)}>Nutrition Info</button></td>
-
-                </tr>
+                <React.Fragment>
+                  <tr key={item._id}>
+                    <td>{item.food_name}</td>
+                    <td>{item.food_qty}</td>
+                    <td>{item.storage_area}</td>
+                    <td>{createdDate}</td>
+                    <td>{expDate}</td>
+                    <td>
+                      <ChartExpiration expireDate={item.expiration_date} createDate={item.createdAt} />
+                    </td>
+                    <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
+                    <td><Link to='/edit'><button onClick={() => this.setIndividualItem(item)}>Edit</button></Link></td>
+                    <td><button onClick={() => this.getNutritionInfo(item.food_name)}>Nutrition Info</button></td>
+                  </tr>
+                </React.Fragment>
               )
             })}
           </tbody>
@@ -271,4 +277,5 @@ setIndividualItem(item) {
     );
   }
 }
+
 export default App;
