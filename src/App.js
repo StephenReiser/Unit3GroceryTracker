@@ -7,6 +7,7 @@ import NewForm from './components/NewForm'
 import NavBar from './components/NavBar'
 import NutritionInfo from './components/NutritionInfo.js'
 import RecipeInfo from './components/RecipeInfo'
+import Home from './components/Home'
 
 let baseURL = ''
 
@@ -230,80 +231,28 @@ clearIngredients () {
       <Router>
         <div className="container-fluid">
           <NavBar />
-          <NewForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} food_name={this.state.food_name} food_qty={this.state.food_qty} storage_area={this.state.storage_area} expiration_date={this.state.expiration_date} handleSelect={this.handleSelect} />
-          <div className="row">
-            <div className="col"></div>
-            <div className="col-9">
-
-              <div class="card-deck">
-
-                {this.state.groceries.map(item => {
-                  // below converts expire date to a string - probably should put these into a funciton - seems to be screwed up on the 1st/last day of a month
-                  let itemDate = new Date(item.expiration_date)
-                  let itemYear = itemDate.getFullYear();
-                  let itemMonth = (1 + itemDate.getMonth()).toString().padStart(2, "0");
-                  let itemDay = (1 + itemDate.getDate()).toString().padStart(2, "0");
-                  let expDate = itemYear + '-' + itemMonth + '-' + itemDay
-
-                  // below convertes createdAt to a string
-                  let createDate = new Date(item.createdAt)
-                  let createYear = createDate.getFullYear();
-                  let createMonth = (1 + createDate.getMonth()).toString().padStart(2, "0");
-                  let createDay = createDate.getDate().toString().padStart(2, "0");
-                  let createdDate = createYear + '-' + createMonth + '-' + createDay
-
-
-                  return (
-                    <React.Fragment key={item._id}>
-                      <div class="card">
-                        {/* <img src="..." class="card-img-top" alt="..." /> */}
-                        <ChartExpiration expireDate={item.expiration_date} createDate={item.createdAt} />
-                        <div class="card-body">
-                          <h3 class="card-title">{item.food_name}</h3>
-                          <p class="card-text"><b>Quantity |</b> {item.food_qty}</p>
-                          <p class="card-text"><b>Created |</b> {createdDate}</p>
-                          <p class="card-text"><b>Expiration |</b> {expDate}</p>
-                          <p class="card-text"><b>Storage |</b> {item.storage_area}</p>
-                          <div className="row">
-                            <div className="col-1">
-                              <button class="btn btn-outline-danger btn-sm" onClick={() => this.deleteGrocery(item._id)}>X</button>
-                            </div>
-                            <div className="col-1">
-                              <button class="btn btn-outline-success btn-sm" onClick={() => this.addToSearchIngredients(item.food_name)}>+</button>
-                            </div>
-                            <div className="col-3">
-                              <Link to='/edit'><button class="btn btn-outline-primary btn-sm" onClick={() => this.setIndividualItem(item)}>Edit</button></Link>
-                            </div>
-                            <div className="col-6">
-                              <button class="btn btn-outline-success btn-sm" onClick={() => this.getNutritionInfo(item.food_name)}>Nutrition Info</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </React.Fragment>
-
-                  )
-
-                })}
-              </div>
-
-            </div>
-            <div className="col"></div>
-          </div>
-
-        </div>
-
+         
+          <Route path='/new' render={(props)=> <NewForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} food_name={this.state.food_name} food_qty={this.state.food_qty} storage_area={this.state.storage_area} expiration_date={this.state.expiration_date} handleSelect={this.handleSelect} />}></Route>
+          
+          <Route path= '/' exact render={(props) =><Home groceries={this.state.groceries} setIndividualItem={this.setIndividualItem} addToSearchIngredients={this.addToSearchIngredients} deleteGrocery={this.deleteGrocery} getNutritionInfo={this.getNutritionInfo}/>}></Route>
+          
+          
+          {/* <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} />}></Route> */}
 
         {(this.state.food)
-          ? <NutritionInfo food={this.state.food} />
-          : ''
+          ? <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} />}></Route>
+          : null
         }
+
+{/* <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} />} /> */}
+
         <Route path='/edit' render={(props) => <EditItem editFood_name={this.state.editFood_name} handleEdit={this.handleEdit} editStorage_area={this.state.editStorage_area} editFood_name={this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange={this.handleChange} groceriesDetails={this.state.groceriesDetails} handleSelect={this.handleEditSelect} />} />
 
         <RecipeInfo searchIngredient={this.state.searchIngredient} clearIngredients = {this.clearIngredients}/>
         <div>
           {/*
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/> */}
+        </div>
         </div>
       </Router >
     );
