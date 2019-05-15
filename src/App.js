@@ -218,6 +218,7 @@ class App extends React.Component {
         <table>
           <tbody>
             <tr>
+              <td></td>
               <td>Food Name</td>
               <td>Food Qty</td>
               <td>Storage Area</td>
@@ -245,6 +246,7 @@ class App extends React.Component {
               return (
                 <React.Fragment>
                   <tr key={item._id}>
+                  <td><button>+</button></td>
                     <td>{item.food_name}</td>
                     <td>{item.food_qty}</td>
                     <td>{item.storage_area}</td>
