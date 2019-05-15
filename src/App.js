@@ -47,6 +47,7 @@ class App extends React.Component {
     this.setIndividualItem = this.setIndividualItem.bind(this)
     this.getNutritionInfo = this.getNutritionInfo.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleEditSelect = this.handleEditSelect.bind(this)
     
   }
   getGroceries() {
@@ -71,6 +72,12 @@ class App extends React.Component {
   handleSelect(event){
     this.setState({
       storage_area: event.target.value
+    })
+  }
+
+  handleEditSelect(event){
+    this.setState({
+      editStorage_area: event.target.value
     })
   }
 
@@ -252,7 +259,7 @@ setIndividualItem(item) {
               ? <NutritionInfo food={this.state.food} />
               : ''
           }
-        <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>}/>
+        <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails} handleSelect={this.handleEditSelect}/>}/>
         
         <RecipeInfo />
         
