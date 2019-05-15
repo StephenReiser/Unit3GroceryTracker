@@ -16,7 +16,8 @@ class EditItem extends Component {
 
     render() {
         return(
-     
+        
+
             <div className='editForm'>
             
             <form onSubmit={this.props.handleEdit}>
