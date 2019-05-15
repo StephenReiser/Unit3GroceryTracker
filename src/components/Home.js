@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import ChartExpiration from '../components/ChartExpiration'
+import RecipeInfo from '../components/RecipeInfo'
 
 class Home extends Component {
     render() {
@@ -32,24 +33,24 @@ class Home extends Component {
                       <div class="card">
                         {/* <img src="..." class="card-img-top" alt="..." /> */}
                         <ChartExpiration expireDate={item.expiration_date} createDate={item.createdAt} />
-                        <div class="card-body">
-                          <h3 class="card-title">{item.food_name}</h3>
-                          <p class="card-text"><b>Quantity |</b> {item.food_qty}</p>
-                          <p class="card-text"><b>Created |</b> {createdDate}</p>
-                          <p class="card-text"><b>Expiration |</b> {expDate}</p>
-                          <p class="card-text"><b>Storage |</b> {item.storage_area}</p>
+                        <div className="card-body">
+                          <h3 className="card-title">{item.food_name}</h3>
+                          <p className="card-text"><b>Quantity |</b> {item.food_qty}</p>
+                          <p className="card-text"><b>Created |</b> {createdDate}</p>
+                          <p className="card-text"><b>Expiration |</b> {expDate}</p>
+                          <p className="card-text"><b>Storage |</b> {item.storage_area}</p>
                           <div className="row">
                             <div className="col-1">
-                              <button class="btn btn-outline-danger btn-sm" onClick={() => this.deleteGrocery(item._id)}>X</button>
+                              <button className="btn btn-outline-danger btn-sm" onClick={() => this.props.deleteGrocery(item._id)}>X</button>
                             </div>
                             <div className="col-1">
-                              <button class="btn btn-outline-success btn-sm" onClick={() => this.props.addToSearchIngredients(item.food_name)}>+</button>
+                              <button className="btn btn-outline-success btn-sm" onClick={() => this.props.addToSearchIngredients(item.food_name)}>+</button>
                             </div>
                             <div className="col-3">
-                              <Link to='/edit'><button class="btn btn-outline-primary btn-sm" onClick={() => this.props.setIndividualItem(item)}>Edit</button></Link>
+                              <Link to='/edit'><button className="btn btn-outline-primary btn-sm" onClick={() => this.props.setIndividualItem(item)}>Edit</button></Link>
                             </div>
                             <div className="col-6">
-                              <Link to='/show'><button class="btn btn-outline-success btn-sm" onClick={() => this.props.getNutritionInfo(item.food_name)}>Nutrition Info</button></Link>
+                              <Link to='/show'><button className="btn btn-outline-success btn-sm" onClick={() => this.props.getNutritionInfo(item.food_name, item)}>Nutrition Info</button></Link>
                             </div>
                           </div>
                         </div>
@@ -59,10 +60,12 @@ class Home extends Component {
                   )
 
                 })}
+                
               </div>
-
+              
             </div>
             <div className="col"></div>
+            
           </div>
 
         
