@@ -47,6 +47,7 @@ class App extends React.Component {
     this.setIndividualItem = this.setIndividualItem.bind(this)
     this.getNutritionInfo = this.getNutritionInfo.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleEditSelect = this.handleEditSelect.bind(this)
     
   }
   getGroceries() {
@@ -74,6 +75,12 @@ class App extends React.Component {
     })
   }
 
+  handleEditSelect(event){
+    this.setState({
+      editStorage_area: event.target.value
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     fetch(baseURL + '/groceries', {
@@ -84,6 +91,7 @@ class App extends React.Component {
       }
     }).then(res => res.json())
       .then(resJson => {
+        console.log(resJson)
         this.handleAddGrocery(resJson)
         this.setState({
           food_name: '',
@@ -125,7 +133,7 @@ setIndividualItem(item) {
   // function getFormattedDate(date) {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
-    let day = date.getDate().toString().padStart(2, "0");
+    let day = (1 + date.getDate()).toString().padStart(2, "0");
  
     // return month + "/" + day + "/" + year;
 //  }
@@ -216,15 +224,15 @@ setIndividualItem(item) {
               
             </tr>
             {this.state.groceries.map(item => {
-              // below converts expire date to a string - probably should put these into a funciton
+              // below converts expire date to a string - probably should put these into a funciton - seems to be screwed up on the 1st/last day of a month
               let itemDate = new Date(item.expiration_date)
               let itemYear = itemDate.getFullYear();
               let itemMonth = (1 + itemDate.getMonth()).toString().padStart(2, "0");
-              let itemDay = itemDate.getDate().toString().padStart(2, "0");
+              let itemDay = (1 + itemDate.getDate()).toString().padStart(2, "0");
               let expDate = itemYear+'-'+ itemMonth+'-'+ itemDay
 
               // below convertes createdAt to a string
-              let createDate = new Date(item.expiration_date)
+              let createDate = new Date(item.createdAt)
               let createYear = createDate.getFullYear();
               let createMonth = (1 + createDate.getMonth()).toString().padStart(2, "0");
               let createDay = createDate.getDate().toString().padStart(2, "0");
@@ -252,7 +260,7 @@ setIndividualItem(item) {
               ? <NutritionInfo food={this.state.food} />
               : ''
           }
-        <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/>}/>
+        <Route path='/edit' render={(props)=><EditItem editFood_name={this.state.editFood_name}handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails} handleSelect={this.handleEditSelect}/>}/>
         
         <RecipeInfo />
         

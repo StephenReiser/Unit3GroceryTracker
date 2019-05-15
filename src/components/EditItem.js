@@ -30,7 +30,16 @@ class EditItem extends Component {
             <label htmlFor="editExpiration_date">Expiration Date</label>
             <input type='date' id='editExpiration_date' value={this.props.editExpiration_date} onChange={this.props.handleChange} />
             <label htmlFor="editStorage_area">Storage Area</label>
-            <input type='text' id='editStorage_area' value={this.props.editStorage_area} onChange={this.props.handleChange} />
+            {/* <input type='text' id='editStorage_area' value={this.props.editStorage_area} onChange={this.props.handleChange} /> */}
+
+            <select value={this.props.editStorage_area} onChange={this.props.handleSelect}>
+            
+            <option value='cabinet'>Cabinet</option>
+            <option value='refridgerator'>Refridgerator</option>
+            <option value='freezer'>Freezer</option>
+
+
+        </select>
            
           </form>
           <Link to='/' exact><button onClick={()=>{this.props.handleEdit(this.props.groceriesDetails._id)}}>Edit!</button></Link>
