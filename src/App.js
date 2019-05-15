@@ -249,13 +249,16 @@ class App extends React.Component {
                           <p class="card-text"><b>Expiration |</b> {expDate}</p>
                           <p class="card-text"><b>Storage |</b> {item.storage_area}</p>
                           <div className="row">
-                            <div className="col-2">
+                            <div className="col-1">
                               <button class="btn btn-outline-danger btn-sm" onClick={() => this.deleteGrocery(item._id)}>X</button>
+                            </div>
+                            <div className="col-1">
+                              <button class="btn btn-outline-success btn-sm" onClick={() => this.addToSearchIngredients(item.food_name)}>+</button>
                             </div>
                             <div className="col-3">
                               <Link to='/edit'><button class="btn btn-outline-primary btn-sm" onClick={() => this.setIndividualItem(item)}>Edit</button></Link>
                             </div>
-                            <div className="col-7">
+                            <div className="col-6">
                               <button class="btn btn-outline-success btn-sm" onClick={() => this.getNutritionInfo(item.food_name)}>Nutrition Info</button>
                             </div>
                           </div>
