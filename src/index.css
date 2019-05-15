@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+/* https://stackoverflow.com/questions/36487389/bootstrap-4-card-deck-table-cell-columns-responsive-based-on-viewport */
+.card-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 3rem;
+}
+
+.card {
+  padding-top: 5%;
+}
+
+.card a {
+  color: black;
+  text-decoration: none;
+}
