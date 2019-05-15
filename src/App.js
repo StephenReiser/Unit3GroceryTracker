@@ -239,7 +239,7 @@ clearIngredients () {
          
           <Route path='/new' render={(props)=> <NewForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} food_name={this.state.food_name} food_qty={this.state.food_qty} storage_area={this.state.storage_area} expiration_date={this.state.expiration_date} handleSelect={this.handleSelect} />}></Route>
           
-          <Route path= '/' exact render={(props) =><Home groceries={this.state.groceries} setIndividualItem={this.setIndividualItem} addToSearchIngredients={this.addToSearchIngredients} deleteGrocery={this.deleteGrocery} getNutritionInfo={this.getNutritionInfo}/>}></Route>
+          <Route path= '/' exact render={(props) =><Home groceries={this.state.groceries} setIndividualItem={this.setIndividualItem} addToSearchIngredients={this.addToSearchIngredients} deleteGrocery={this.deleteGrocery} getNutritionInfo={this.getNutritionInfo} searchIngredient={this.state.searchIngredient} clearIngredients={this.state.clearIngredients}/>}></Route>
 
           <Route path= '/tabular' exact render={(props) =><TabularView groceries={this.state.groceries} setIndividualItem={this.setIndividualItem} addToSearchIngredients={this.addToSearchIngredients} deleteGrocery={this.deleteGrocery} getNutritionInfo={this.getNutritionInfo}/>}></Route>
           
@@ -255,11 +255,12 @@ clearIngredients () {
 
         <Route path='/edit' render={(props) => <EditItem editFood_name={this.state.editFood_name} handleEdit={this.handleEdit} editStorage_area={this.state.editStorage_area} editFood_name={this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange={this.handleChange} groceriesDetails={this.state.groceriesDetails} handleSelect={this.handleEditSelect} />} />
 
-        <RecipeInfo searchIngredient={this.state.searchIngredient} clearIngredients = {this.clearIngredients}/>
+        
         <div>
           {/*
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/> */}
         </div>
+        <RecipeInfo searchIngredient={this.state.searchIngredient} clearIngredients = {this.clearIngredients}/>
         </div>
       </Router >
     );

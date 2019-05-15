@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class NewForm extends Component {
     render() {
         return(
+            
             <form onSubmit={this.props.handleSubmit}>
             <label htmlFor="food_name">Food Name</label>
             <input type='text' id='food_name' value={this.props.food_name} placeholder='New Item' onChange={this.props.handleChange} />
@@ -21,9 +23,10 @@ class NewForm extends Component {
 
             </select>
 
-
-            <input type='submit' value='Add Food' />
+            
+           <input type='submit' value='Add Food' />
           </form> 
+          
         )
     }
 }
