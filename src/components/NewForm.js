@@ -1,39 +1,88 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import {
+  Bootstrap,
+  FormLabel,
+  Col,
+  FormGroup,
+  FormControl,
+  ControlLabel
+} from 'react-bootstrap';
 
 class NewForm extends Component {
-    render() {
-        return(
-            
-            <form onSubmit={this.props.handleSubmit}>
-            <label htmlFor="food_name">Food Name</label>
-            <input type='text' id='food_name' value={this.props.food_name} placeholder='New Item' onChange={this.props.handleChange} />
-            <label htmlFor="food_qty">Quantity</label>
-            <input type='number' id='food_qty' min="1" value={this.props.food_qty} placeholder='1' onChange={this.props.handleChange} />
-            <label htmlFor="expiration_date">Expiration Date</label>
-            <input type='date' id='expiration_date' value={this.props.expiration_date} placeholder='' onChange={this.props.handleChange} />
-            <label htmlFor="storage_area">Storage Area</label>
-            {/* <input type='text' id='storage_area' value={this.props.storage_area} placeholder='' onChange={this.props.handleChange} /> */}
-            <select onChange={this.props.handleSelect}>
-            
-                <option value='cabinet'>Cabinet</option>
-                <option value='refridgerator'>Refridgerator</option>
-                <option value='freezer'>Freezer</option>
+  render() {
+    return (
+      <Form onSubmit={this.props.handleSubmit}>
+        <FormGroup>
+          <Col componentClass={FormLabel} sm={2}>
+            Food Name:
+          </Col>
+          <Col sm={10}>
+            <FormControl
+              onChange={this.props.handleChange}
+              value={this.props.food_name}
+              type='text'
+              id='food_name'
+              placeholder='Food Name'
+            />
+          </Col>
+        </FormGroup>
 
+        <FormGroup>
+          <Col componentClass={FormLabel} sm={2}>
+            Quantity:
+          </Col>
+          <Col sm={10}>
+            <FormControl
+              onChange={this.props.handleChange}
+              type='number'
+              id='food_qty'
+              min='1'
+              value={this.props.food_qty}
+              placeholder='1'
+              onChange={this.props.handleChange}
+            />
+          </Col>
+        </FormGroup>
 
-            </select>
+        <FormGroup>
+          <Col componentClass={FormLabel} sm={2}>
+            Expiration Date:
+          </Col>
+          <Col sm={10}>
+            <FormControl
+              onChange={this.props.handleChange}
+              type='date'
+              id='expiration_date'
+              value={this.props.expiration_date}
+              placeholder=''
+            />
+          </Col>
+        </FormGroup>
 
-            
-           <input type='submit' value='Add Food' />
-          </form> 
-          
-        )
-    }
+        <FormGroup>
+          <Col componentClass={FormLabel} sm={2}>
+            Storage Area:
+          </Col>
+          <Col sm={10}>
+            <Form.Control id='storage_area' as='select' onChange={this.props.handleSelect}>
+              <option>Choose...</option>
+              <option>Freezer</option>
+              <option>Pantry</option>
+              <option>Refridgerator</option>
+            </Form.Control>
+          </Col>
+        </FormGroup>
+
+        <Col componentClass={FormLabel} sm={2}>
+          <Button id='button-submit' bsStyle='primary' type='submit'>
+            Add Food
+          </Button>
+        </Col>
+      </Form>
+    );
+  }
 }
 
-
-
-
-export default NewForm
-
-
+export default NewForm;
