@@ -291,7 +291,7 @@ clearIngredients () {
             <div className="col"></div>
           </div>
 
-        </div>
+
 
 
         {(this.state.food)
@@ -304,6 +304,7 @@ clearIngredients () {
         <div>
           {/*
         <EditItem handleEdit={this.handleEdit} editStorage_area = {this.state.editStorage_area} editFood_name = {this.state.editFood_name} editFood_qty={this.state.editFood_qty} editExpiration_date={this.state.editExpiration_date} handleChange = {this.handleChange} groceriesDetails = {this.state.groceriesDetails}/> */}
+        </div>
         </div>
       </Router >
     );
