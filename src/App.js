@@ -189,7 +189,7 @@ class App extends React.Component {
   }
 
 
-  getNutritionInfo(food_name) {
+  getNutritionInfo(food_name, fullItem) {
     this.setState({
       searchURL: this.state.baseURL + food_name + this.state.query + this.state.range + this.state.fields + this.state.authorization
     }, () => {
@@ -202,7 +202,11 @@ class App extends React.Component {
           console.log(json)
           this.setState({
             food: whatever,
-            food_Name: ''
+            food_Name: '',
+            food_name: fullItem.food_name,
+            food_qty: fullItem.food_qty,
+            expiration_date: fullItem.expiration_date,
+            storage_area: fullItem.storage_area,
           })
         },
           err => console.log(err))
@@ -243,7 +247,7 @@ clearIngredients () {
           {/* <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} />}></Route> */}
 
         {(this.state.food)
-          ? <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} />}></Route>
+          ? <Route path='/show' render={(props) => <NutritionInfo food={this.state.food} food_name={this.state.food_name} food_qty={this.state.food_qty} expiration_date={this.state.expiration_date} storage_area={this.state.storage_area}/>}></Route>
           : null
         }
 

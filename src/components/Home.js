@@ -49,7 +49,7 @@ class Home extends Component {
                               <Link to='/edit'><button class="btn btn-outline-primary btn-sm" onClick={() => this.props.setIndividualItem(item)}>Edit</button></Link>
                             </div>
                             <div className="col-6">
-                              <Link to='/show'><button class="btn btn-outline-success btn-sm" onClick={() => this.props.getNutritionInfo(item.food_name)}>Nutrition Info</button></Link>
+                              <Link to='/show'><button class="btn btn-outline-success btn-sm" onClick={() => this.props.getNutritionInfo(item.food_name, item)}>Nutrition Info</button></Link>
                             </div>
                           </div>
                         </div>
