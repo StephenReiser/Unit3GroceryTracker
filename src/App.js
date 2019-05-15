@@ -1,6 +1,6 @@
 import React from 'react';
 import EditItem from './components/EditItem'
-import ChartFutures from './components/futures'
+import ChartExpiration from './components/ChartExpiration'
 
 let baseURL = ''
 
@@ -193,7 +193,7 @@ class App extends React.Component {
                     <td>{item.createdAt}</td>
                     <td>{item.expiration_date}</td>
                     <td>
-                      <ChartFutures expireDate={item.expiration_date} createDate={item.createdAt} />
+                      <ChartExpiration expireDate={item.expiration_date} createDate={item.createdAt} />
                     </td>
                     <td><button onClick={() => this.deleteGrocery(item._id)}>X</button></td>
                     <td><button onClick={() => this.setIndividualItem(item)}>Edit</button></td>
