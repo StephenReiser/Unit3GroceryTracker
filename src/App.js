@@ -26,7 +26,7 @@ class App extends React.Component {
       food_name: '',
       food_qty: 1,
       expiration_date: "2019-05-01",
-      storage_area: 'cabinet',
+      storage_area: 'Pantry',
       editFood_name: '',
       editFood_qty: '',
       editExpiration_date: "2019-05-01",
@@ -103,7 +103,7 @@ class App extends React.Component {
           food_name: '',
           food_qty: 1,
           expiration_date: "2019-05-01",
-          storage_area: 'cabinet'
+          storage_area: 'Pantry'
         })
       }).catch(error => console.error({ 'Error': error }))
   }
